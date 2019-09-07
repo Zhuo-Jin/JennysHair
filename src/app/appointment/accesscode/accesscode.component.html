@@ -1,0 +1,24 @@
+<mat-dialog-content>
+<div container>
+    <div class = "row">
+            <div><p>Please provide your access code</p></div>
+            
+            
+    </div>
+    <div class = "row">
+            <input type="password" [(ngModel)] = "accessCode" class="form-control" placeholder="Appointment Access Code" aria-label="Password" aria-describedby="addon-wrapping">
+            <small class="text-right text-danger ml-1 my-1" *ngIf = "!validAccessCode">Invalid Access Code</small>
+    </div>
+    <div class = "row mt-4">
+            <div class="col-lg-1 col-md-1 col-sm-1 ">
+            </div>
+            <div class="col-lg-10 col-md-10 col-sm-10 ">
+                <button type="button" mdbBtn size = "sm" color="light-green" class="px-10" mdbWavesEffect (click)="onClick('')">Yes</button>    
+                <button type="button" mdbBtn size = "sm" color="light-green"  mdbWavesEffect (click)="onClick('cancel')">No</button>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1 ">
+            </div>
+    </div>
+
+</div>
+</mat-dialog-content>

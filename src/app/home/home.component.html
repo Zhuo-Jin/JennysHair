@@ -1,0 +1,105 @@
+<!--Main container-->
+<div class="container">
+    
+    <!--Grid row-->
+    <div class="row">
+
+      <!--Grid column-->
+      <div class="col-md-6 mb-4">
+
+        <div class="view overlay z-depth-1-half">
+          <img src="../../assets/Images/Main.jpg" class="card-img-top" alt="">
+          <div class="mask rgba-white-light"></div>
+        </div>
+
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-md-6 mb-4">
+
+        <h2><em>W</em>elcome to Jenny's Hair Salon</h2>
+        <hr>
+        <p>Jenny's Hair Salon is a small home business located at the beautiful suburb of West Pennant Hill.</p>
+        <p>Jenny known as a korean hair dresser owns over 30 years experience of hair desgin. When she was in Korea, she helped numbers of Korean celebrities design the hair style.  </p>
+        <!-- <p>Now Jenny is ready to provide all satisfied hair dress service across all gender and ages.  </p> -->
+        <div class = "text-center pt-2"><button type="button"  mdbBtn color="light-green" mdbWavesEffect (click) = "onClickAppointment()">Make an Appointment now !</button></div>
+
+      </div>
+      <!--Grid column-->
+
+    </div>
+    <!--Grid row-->
+
+    <div class = "row">
+      <div class = "col-md-4 my-4">
+        <h4><em>W</em>e offer below service</h4>
+        <hr/>
+        <p>
+      </div>
+      <div class = "col-md-1 my-4">
+        
+      </div>
+      <div class = "col-md-7 my-2">
+        <img *ngFor = "let imgNo of randomImageNumber" src="../../assets/Images/Random/{{imgNo.ImageNumber}}.jpg" 
+              class="{{imgNo.isIn ? 'mx-3 animated fadeIn float-right img-thumbnail rounded  z-depth-1 ' : 'mx-3 animated fadeOut float-right img-thumbnail rounded  z-depth-1 '}}" 
+              style="width: 70px; height: 70px" alt = "{{imgNo.ImageNumber}}.jpg"     >
+      </div>
+    </div>
+    <!--Grid row-->
+    <div class="row">
+
+      <!--Grid column-->
+      <div class="col-lg-2 col-md-3 col-sm-4 mb-4" *ngFor= "let serviceItem of serviceItems">
+
+        <!--Card-->
+        <div class="card z-depth-1-half">
+
+          <!--Card image-->
+          <div class="view overlay">
+              
+            <img src="../../assets/Images/{{serviceItem.ServiceCode}}.jpg" class="card-img-top"
+              alt="">
+            <a href="#">
+              <div class="mask rgba-white-slight"></div>
+            </a>
+          </div>
+
+          <!--Card content-->
+          <div class="card-body">
+            <!--Title-->
+
+            <p class="card-text text-center" >{{serviceItem.ServiceDescription}}</p>
+            <div class = "text-center" *ngIf="serviceItem.ItemPrice == '0.0'"> 
+              <button mdbBtn type="button" size = "sm" color="pink"  mdbWavesEffect class="btn-long" >${{serviceItem.ItemPrice | number:'1.2'}}</button>
+            </div>
+              
+              
+              
+            <div class = "text-center" *ngIf="serviceItem.ItemPrice  != '0.0'">
+              <button mdbBtn type="button" size = "sm" color="info"  mdbWavesEffect class="btn-long" >${{serviceItem.ItemPrice | number:'1.2'}}</button>
+            </div>
+          </div>
+
+        </div>
+        <!--/.Card-->
+
+      </div>
+      <!--Grid column-->
+
+    </div>
+    <!--Grid row-->
+
+  </div>
+  <!--Main container-->
+  
+      <!-- Footer -->
+  <footer class="page-footer font-small purple lighten-1 pt-4 mt-4">
+
+ 
+      <div class="footer-copyright text-center py-3" color="lime accent-1">© 2018 Copyright: From Jenny's Hair
+        
+      </div>
+  
+  
+    </footer>

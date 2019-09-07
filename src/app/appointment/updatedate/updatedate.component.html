@@ -1,0 +1,54 @@
+<mat-dialog-content>
+<div class = "container" [formGroup]="datePickerForm" >
+    
+    <h4>Your faverate time is,</h4>
+    <div class = "row">
+        
+        <div class = "col-lg-3 col-md-3 col-sm-3">
+                <br/>
+                <B class = "align-middle mt-3">Date:</B> 
+        </div>  
+        <div class = "col-lg-6 col-md-6 col-sm-6">
+            <mat-form-field color="success" >
+                <input matInput [matDatepicker]="picker" required 
+                         #dateEntered placeholder="Select Date*"
+                         [matDatepickerFilter]="workDateFilter"
+                         (dateChange)="updateDate(dateEntered.value)" 
+                        formControlName ="appCtrlDate">
+
+                <mat-datepicker-toggle matSuffix [for]="picker" fill="#FF0000"></mat-datepicker-toggle>
+                <mat-datepicker #picker color="success"></mat-datepicker>
+            </mat-form-field> 
+        </div>   
+
+    </div>
+
+    <div class = "row">
+        
+        <div class = "col-lg-3 col-md-3 col-sm-3">
+                <br/><B>Time:</B> 
+        </div>  
+
+        <div class = "col-lg-6 col-md-6 col-sm-6">
+            <mat-form-field>
+                <mat-label>Select Time*</mat-label>
+                <mat-select [(value)]="appointmentTime" formControlName ="appCtrlTime">
+                    <mat-option *ngFor= "let time of availableTimeList" value="{{time}}">{{time}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+             <small class="text-right text-danger mr-1" *ngIf = "exceedMaxAvalibaleHours">Selected Item time exceeds total available time( {{this.AvailableUnits * this.Unit.UnitInMin}} mins)</small>
+        </div>   
+        
+    </div>
+    <div class= "row">
+        
+        <div class="my-4">
+            <button type="button" mdbBtn size = "sm" color="light-green" class="px-10" mdbWavesEffect (click)="onClose('')">Confirm</button>    
+            <button type="button" mdbBtn size = "sm" color="light-green"  mdbWavesEffect (click)="onClose('cancel')">Cancel</button>
+        </div>
+        
+
+    </div>
+       
+</div>
+</mat-dialog-content> 

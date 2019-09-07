@@ -1,0 +1,170 @@
+<!--Date Picker-->
+<div class = "container">
+    <div class= "row">
+         <div class="col-lg-6 col-md-6 col-sm-6 mb-4 " [formGroup]="datePickerForm">
+            
+            <h4 *ngIf = "user.Firstname != null">Hey {{user.Firstname | uppercase }}, select your prefer date<hr/></h4>    
+            <h4 *ngIf = "user.Firstname == null">Dear Customer, select your prefer date<hr/></h4>
+
+            <mat-form-field color="success"  >
+                <input class = "text-center" matInput 
+                      [matDatepicker]="picker" required 
+                      [matDatepickerFilter]="workDateFilter"
+                      placeholder="Choose your date" #dateEntered 
+                      (dateChange)="updateDate(dateEntered.value)" 
+                      formControlName ="appointmentDate">
+
+                <mat-datepicker-toggle matSuffix [for]="picker" fill="#FF0000"></mat-datepicker-toggle>
+                <mat-datepicker #picker color="success"></mat-datepicker>
+            </mat-form-field>    
+            <small *ngIf = "dateEntered.invalid== false">Input date is not valid</small>  
+            
+        </div>
+    </div>
+ 
+</div>
+<!--appoint section -->
+<div class="container">
+  <div class = "row" *ngIf = "dateSelected != null && dateSelected != ''" >
+      
+    <div class = "col-lg-10 col-md-10 col-sm-10 mb-4">
+      <h4 class= "mb-1">Choose your prefer time</h4>
+      <hr/>
+      <table mdbTable borderless="true" class= "animated fadeIn z-depth-1-half ">
+        <thead class= "pink lighten-2 text-white my-3">
+          <tr class="rounded-top text-center">
+            <th *ngFor="let head of headElements let i = index" scope="col" class=""  > 
+                <!-- <img src="../assets/Images/arrow_left.png" *ngIf = "i ==1" (click) = "addDate(-1)" >   -->
+                  <div [ngClass]="fadeIn ? 'animated fadeIn mhover' : 'animated fadeOut mhover'" *ngIf = "i ==1" (click) = "addDate(-1)"><b ><<~ {{head}} </b></div>
+                  <div [ngClass]="fadeIn ? 'animated fadeIn mhover' : 'animated fadeOut mhover'" *ngIf = "i ==3" (click) = "addDate(1)"><b >{{head}} ~>></b></div>
+                  <div [ngClass]="fadeIn ? 'animated fadeIn ' : 'animated fadeOut mhover'" *ngIf = "i ==2" ><b>{{head}}</b></div>
+                <!-- <img src="../assets/Images/arrow_right.png" *ngIf = "i ==3" (click) = "addDate(1)"> -->
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr mdbTableCol *ngFor="let app of appItemsForCalendar" class = "py-1">
+            <th scope="row"  class="text-center align-middle pt-1"  >{{app.DisplayItemsInRow[0]}}</th>
+            
+            <td class="text-center align-middle pt-1"  *ngIf="app.DisplayItemsInRow[1] != '' && (ScheduleBelongsToCurrentUser(app.DisplayItemsInRow[1]) == true)">
+              <button type="button" mdbBtn size = "sm" color="light-green"   mdbWavesEffect (click)="openDialog(app, 1, destinationBottom)">You Booked</button>
+            </td>
+            <td class="text-center align-middle pt-1"  *ngIf="app.DisplayItemsInRow[1] != '' && (ScheduleBelongsToCurrentUser(app.DisplayItemsInRow[1]) == false)">
+              <button type="button" mdbBtn size = "sm" color="info"   mdbWavesEffect >Booked</button>
+            </td>
+            <td class="text-center align-middle pt-1"  *ngIf="app.DisplayItemsInRow[1] == ''">
+              <button mdbBtn type="button" size = "sm" color="light-green" outline="true" mdbWavesEffect (click)="openDialog(app, 1, destinationBottom)">Availa</button>
+            </td>
+
+            <td class="text-center align-middle pt-1"  *ngIf="app.DisplayItemsInRow[2] != '' && (ScheduleBelongsToCurrentUser(app.DisplayItemsInRow[2]) == true)">
+              <button type="button " mdbBtn size = "sm" color="light-green"  mdbWavesEffect (click)="openDialog(app, 2, destinationBottom)">You Booked</button>
+            </td>
+
+            <td class="text-center align-middle pt-1"  *ngIf="app.DisplayItemsInRow[2] != '' && (ScheduleBelongsToCurrentUser(app.DisplayItemsInRow[2]) == false)">
+              <button type="button " mdbBtn size = "sm" color="info"  mdbWavesEffect >Booked</button>
+            </td>
+
+            <td class="text-center align-middle pt-1"  *ngIf="app.DisplayItemsInRow[2] == ''">
+              <button mdbBtn type="button" size = "sm" color="light-green" outline="true" mdbWavesEffect (click)="openDialog(app, 2, destinationBottom)">Availa</button>
+            </td>
+            
+            <td class="text-center align-middle pt-1"  *ngIf="app.DisplayItemsInRow[3] != '' && (ScheduleBelongsToCurrentUser(app.DisplayItemsInRow[3]) == true)">
+              <button type="button " mdbBtn size = "sm" color="light-green"  mdbWavesEffect (click)="openDialog(app, 3, destinationBottom)">You Booked</button>
+            </td>
+            <td class="text-center align-middle pt-1"  *ngIf="app.DisplayItemsInRow[3] != '' && (ScheduleBelongsToCurrentUser(app.DisplayItemsInRow[3]) == false)">
+              <button type="button " mdbBtn size = "sm" color="info"  mdbWavesEffect>Booked</button>
+            </td>
+            <td class="text-center align-middle pt-1"  *ngIf="app.DisplayItemsInRow[3] == ''">
+              <button mdbBtn type="button" size = "sm" color="light-green" outline="true" mdbWavesEffect (click)="openDialog(app, 3, destinationBottom)">Availa</button>
+            </td>
+            
+            
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class = "col-sm-2">
+      <br/>
+    </div>
+  </div>
+
+</div>
+
+<div class = "container my-4" *ngIf = "selectedServices?.length > 0" >
+    
+  <div class = "row">
+    <div class = "col-lg-2 col-md-2 col-sm-2"></div>
+    <div class = "col-lg-6 col-md-6 col-sm-6">
+      <h4 class= "text-center mt-2">Your Appointment Summary</h4>
+      <div class = "row mt-4">
+        <div class = "col-lg-6 col-md-6 col-sm-6 text-left"><b>Name:</b></div>
+        <div *ngIf = "user.Firstname != '' || user.Surname != ''"  class = "col-lg-6 col-md-6 col-sm-6 text-right">{{user.Firstname}} {{user.Surname}}</div>
+        <div *ngIf = "user.Firstname == '' && user.Surname == ''"  class = "col-lg-6 col-md-6 col-sm-6 text-right">Anonymous</div>
+      </div>
+      <div class = "row">
+        <div class = "col-lg-6 col-md-6 col-sm-6 text-left"><b>Mobile:</b></div>
+        <div class = "col-lg-6 col-md-6 col-sm-6 text-right">{{MaskMiddleCharForPhone(user.Mobile)}}</div>
+      </div>
+      <div class = "row mb-4">
+        <div class = "col-lg-6 col-md-6 col-sm-6 text-left"><b>Email:</b></div>
+        <div class = "col-lg-6 col-md-6 col-sm-6 text-right">{{MaskMiddleCharForEmail(user.Email)}}</div>
+      </div> 
+
+      <div class = "row mt-4">
+        <div class = "col-lg-6 col-md-6 col-sm-6 text-left"><b>Appoint Date:</b></div>
+        <div class = "col-lg-6 col-md-6 col-sm-6 text-right">{{summary.ServiceStartDate | date}} </div>
+      </div>
+      <div class = "row">
+        <div class = "col-lg-6 col-md-6 col-sm-6 text-left"><b>Appoint Time:</b></div>
+        <div class = "col-lg-6 col-md-6 col-sm-6 text-right">{{summary.ServiceStartTime}}</div>
+      </div>
+      <div class = "row mb-4">
+        <div class = "col-lg-6 col-md-6 col-sm-6 text-left"><b>Estimated Duration:</b></div>
+        <div class = "col-lg-6 col-md-6 col-sm-6 text-right">{{summary.TotalEstiamtedTime}} mins</div>
+      </div> 
+      
+      <div class = "row" *ngFor = "let item of selectedServices; first as isFirst">
+        <div class = "col-lg-5 col-md-5 col-sm-5 text-left" *ngIf = "isFirst"><b>Services:</b> </div>
+        <div class = "col-lg-5 col-md-5 col-sm-5 text-left" *ngIf = "!isFirst"></div>
+        <div class = "col-lg-4 col-md-4 col-sm-4">{{item.ServiceDescription}}</div>
+        <div class = "col-lg-3 col-md-3 col-sm-3 text-right">${{item.ItemPrice}}</div>
+      </div>  
+
+      <hr> 
+      <div class = "row" >
+        <div class = "col-lg-6 col-md-6 col-sm-6 text-left">
+          Total:   
+        </div>
+        <div class = "col-lg-3 col-md-3 col-sm-3">
+          
+        </div>
+        <div class = "col-lg-3 col-md-3 col-sm-3 text-right">
+          ${{summary.TotalCost}}
+        </div>
+          
+      </div>   
+         
+    </div>
+    <div class = "col-lg-2 col-md-2 col-sm-2"></div>
+  </div>  
+</div>
+
+<div  class = "container my-4" *ngIf = "dateSelected != null && dateSelected != ''">
+  <div class = "row">
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>  
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+      <div class = "row" >
+        <div class = "col-lg-3 col-md-3 col-sm-3 text-left my-4"></div>
+        <div class = "col-lg-6 col-md-6 col-sm-6">
+          
+          <button type="submit" mdbBtn size = "sm" color="light-green" class="px-10" mdbWavesEffect  [disabled]="selectedServices?.length == 0 || disableSubmit" (click) = "onSubmit()">Submit <i class="fa fa-spinner fa-spin" *ngIf="loading"></i></button>    
+          <button type="button" mdbBtn size = "sm" color="light-green"  mdbWavesEffect (click) = "onCancel()">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>  
+</div>
+
+
+<div  style = "margin-top: 400px;" #destinationBottom><p><br/></p></div>

@@ -1,0 +1,29 @@
+
+<div class = "container">
+    <h2 class = "text-center">Jenny Provides Below Service<hr/></h2>
+    <div class="row">
+        <div class="animated flip col-lg-2 col-md-3 col-sm-4 my-4" *ngFor= "let serviceItem of serviceItems">
+            <div class="card z-depth-1-half">
+            <div class="view overlay">
+                <img src="../../assets/Images/{{serviceItem.ServiceCode}}.jpg" class="card-img-top"
+                alt="">
+                <a href="#">
+                <div class="mask rgba-white-slight"></div>
+                </a>
+            </div>
+
+            <div class="card-body">
+                <p class="card-text text-center" >{{serviceItem.ServiceDescription}}</p>
+                <p class="card-text text-center" >{{serviceItem.UnitCost * Unit.UnitInMin}} mins</p>
+                <div class = "text-center" *ngIf="serviceItem.ItemPrice == '0.0'"> 
+                <button mdbBtn type="button" size = "sm" color="pink"  mdbWavesEffect class="btn-long" >${{serviceItem.ItemPrice | number:'1.2'}}</button>
+                </div>
+                
+                <div class = "text-center" *ngIf="serviceItem.ItemPrice  != '0.0'">
+                <button mdbBtn type="button" size = "sm" color="info"  mdbWavesEffect class="btn-long" >${{serviceItem.ItemPrice | number:'1.2'}}</button>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+<mat-dialog-content>
+<div class = "container">
+    <div class = "row">
+        <p class= "mb-4 ml-2">We found the below information which is different from the system.</p>
+        <table mdbTable borderless="true" class= "z-depth-1-half">
+            <thead class= "pink lighten-2 text-white my-3">
+                <tr class="rounded-top text-center"> <th scope="col"></th><th scope="col">Your Input</th><th scope="col">System Data</th></tr>
+
+            </thead>
+            <tbody>
+                <tr mdbTableCol *ngFor="let item of data" class = "mt-3">
+                    <th scope="row"  class="text-center align-middle pt-3">{{item[0]}}</th>
+                    <td class="text-center align-middle pt-1" >{{item[1]}}</td>
+                    <td class="text-center align-middle pt-1" style = "color:#33b5e5"><b>{{item[2]}}</b></td>   
+                 </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <p class= "ml-2 mt-4">Do you want to update ?</p>
+    <div class= "row mt-4 ml-1">
+         <button type="button" mdbBtn size = "sm" color="light-green"  mdbWavesEffect (click)="onClose('update')">Yes, Please Update</button>    
+        <button type="button" mdbBtn size = "sm" color="light-green"  mdbWavesEffect (click)="onClose('keep')">No, Keep System Data</button>
+        <button type="button" mdbBtn size = "sm" color="light-green"  mdbWavesEffect (click)="onClose('change')">Cancel, Go Back To Login</button>
+    </div>
+
+</div>
+</mat-dialog-content>

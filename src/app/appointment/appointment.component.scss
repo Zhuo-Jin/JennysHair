@@ -1,0 +1,18 @@
+table{ 
+    border: none;
+    border-radius: 10px; 
+    border-spacing: 0;
+    }
+
+    table th:first-child{
+        border-radius:10px 0 0 0 ;
+      }
+      
+      table th:last-child{
+        border-radius:0 10px 0 0;
+      }
+
+      
+      .mhover{
+        cursor: pointer;
+    }

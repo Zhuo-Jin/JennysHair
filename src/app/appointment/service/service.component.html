@@ -1,0 +1,103 @@
+
+<mat-dialog-content>
+<div class = "container">
+    <div class = "row">
+        <div class = "col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            <h4 *ngIf = "user.Firstname != ''">Hey {{user.Firstname}},</h4>    
+            <h4 *ngIf = "user.Firstname == ''">Dear Customer,</h4>
+
+            <button type="button" mdbBtn  color="info" class="px-10 mb-4" mdbWavesEffect (click) = "openDialog()">
+                {{Summary.ServiceStartDate | date}}  {{Summary.ServiceStartTime}} (Click me to Change)
+            </button>  
+
+
+
+        </div>
+
+        <div class = "col-lg-6 col-md-6 col-sm-6 col-xs-6" *ngIf="Summary.TotalCost > 0">
+            <div class="row">
+                <div class = "col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                </div>
+                <div class = "col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    Total:
+                </div>
+                <div class = "col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    {{Summary.TotalEstiamtedTime}} mins
+                </div>
+                <div class = "col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                    ${{Summary.TotalCost}}
+                </div>
+                  
+            </div>
+            <br/>
+            <div class="row">
+                <div class = "col-lg-11 col-md-11 col-sm-11 col-xs-11">
+                    <small class="text-right text-info mr-1" *ngIf = "willExceedMaxAvalibaleHours && !alreadyExceedMaxAvalibaleHours">Selected Item time will exceed total available time( {{this.AvailableUnits * this.Unit.UnitInMin}} mins)</small>
+                    <small class="text-right text-danger mr-1" *ngIf = "alreadyExceedMaxAvalibaleHours">Selected Item time already exceed total available time( {{this.AvailableUnits * this.Unit.UnitInMin}} mins)</small>
+                </div>
+                <div class = "col-lg-1 col-md-1 col-sm-1 col-xs-1">
+                    </div>
+ 
+            </div>
+        </div>
+    </div>
+    <div class = "row">
+        <!--left all services list-->
+        
+        <div class = "col-lg-5 col-md-5 col-sm-5 col-xs-5 z-depth-1-half">
+            <p class = "my-2">Choose the Service by a simple click </p>
+            <div class="row">
+                <div *ngFor="let servItem of ServiceList" class = "col-lg-4 col-md-4 col-sm-4 col-xs-4 my-2 ">
+                    <div  [ngClass]="bounceOut ? 'animated bounceInLeft card z-depth-1' : 'card z-depth-1'"  (click) = "onClick(servItem)">
+                        <div class="view overlay">
+                            <img src="../../assets/Images/{{servItem.ServiceCode}}.jpg" class="card-img-top"  alt="{{servItem.ServiceDescription}}">
+                            
+                        </div>
+                         <!--Card content-->
+                        <div class="card-body pdd">
+                             <!--Text-->
+                            <p class="card-text text-center f-small" >{{servItem.ServiceDescription}}<br/>${{servItem.ItemPrice}}</p>
+                            
+                        </div>
+                    
+                    </div>
+                </div>  
+            </div>          
+        </div>  
+
+        <div class = "col-lg-1 col-md-1 col-sm-1 col-xs-1">
+        </div>
+        <div [ngClass]="alreadyExceedMaxAvalibaleHours ? 'col-lg-5 col-md-5 col-sm-5 col-xs-5 z-depth-1-half animated tada delay-1s' : 'col-lg-5 col-md-5 col-sm-5 col-xs-5 z-depth-1-half'"     >
+            <p class = "my-2">Selected Service List</p>
+            <div class="row" >
+                <div *ngFor="let selected of SelectedServices" class = "col-lg-4 col-md-4 col-sm-4 col-xs-4 my-2 ">
+                    <div [ngClass]="bounceIn ? 'animated bounceInRight card z-depth-1' : 'card z-depth-1'"  (click) = "onClickBack(selected)">
+                            <div class="view overlay">
+                            <img src="../../assets/Images/{{selected.ServiceCode}}.jpg" class="card-img-top"  alt="{{selected.ServiceDescription}}">
+                            
+                        </div>
+                            <!--Card content-->
+                        <div class="card-body pdd">
+                                <!--Text-->
+                            <p class="card-text text-center f-small" >{{selected.ServiceDescription}}<br/>${{selected.ItemPrice}}</p>
+                            
+                        </div>
+                    
+                    </div>
+                </div> 
+            </div>     
+        </div> 
+    </div>
+
+    <div class= "row">
+        
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 my-4">
+            <button type="button" mdbBtn size = "sm" color="light-green" class="px-10" mdbWavesEffect (click)="onClose('')">Confirm</button>    
+            <button type="button" mdbBtn size = "sm" color="light-green"  mdbWavesEffect (click)="onClose('cancel')">Cancel</button>
+        </div>
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8"></div>
+
+    </div>
+
+</div>
+</mat-dialog-content>

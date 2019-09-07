@@ -1,0 +1,46 @@
+<div class = "container">
+    <div class = "row mt-4">
+        <div class = "col-lg-4 col-md-4 col-sm-4">
+            Tell us a bit about yourself
+            <hr/>
+        </div>
+
+        
+
+
+    </div>
+    
+    <div class = "row mt-4">
+        <div class = "col-lg-6 col-md-6 col-sm-6">
+            <img src="../../assets/Images/JHLogo_Mid.png">
+        </div>
+        <div class = "col-lg-4 col-md-4 col-sm-4" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div *ngIf = "loginForm.get('mobile').invalid  && loginForm.get('mobile').touched">
+                <small class = "text-danger mb-3" *ngIf = "loginForm.get('mobile').errors?.pattern">Invalid Mobile Number</small>    
+                <small class = "text-danger mb-3" *ngIf = "loginForm.get('mobile').value == ''">Mobile Number is Required *</small>        
+            </div>
+            
+            <input type="phone" id="defaultLoginFormMobile" class="form-control mb-3" placeholder="Mobile (START WITH '04')* "  formControlName="mobile">
+                
+            <div *ngIf = "loginForm.get('email').invalid  && loginForm.get('email').touched">
+                <small class = "text-danger mb-3" *ngIf = "loginForm.get('email').errors?.pattern">Invalid Email</small>    
+                
+            </div>
+            
+            <input type="email" id="defaultLoginFormEmail" class="form-control mb-3" placeholder="E-mail" formControlName="email">
+            <input type="text" id="defaultLoginFormFirstname" class="form-control mb-3" placeholder="First Name" formControlName="firstName">
+            <input type="text" id="defaultLoginFormLastname" class="form-control mb-3" placeholder="Last Name" formControlName="lastName">
+            <button type="submit" mdbBtn size = "sm" color="light-green" class="mb-3" mdbWavesEffect [disabled]="loginForm.get('mobile').invalid  || !loginForm.get('mobile').touched" (click) = "onSubmit()">Log in</button>    
+            <button type="button" mdbBtn size = "sm" color="light-green" class="mb-3" mdbWavesEffect (click) = "onBack()">Cancel</button>
+   
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+
+  

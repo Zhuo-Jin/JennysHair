@@ -1,0 +1,17 @@
+<mat-dialog-content>
+<div class = "container">
+    <p class = "text-center">Your access code is</p> 
+    <H3 class = "text-center">{{appoinment.Token}}</H3>
+    <small class="text-right text-info ml-1 my-1">*You will be asked to provide Access Code to update your appointment</small>
+    
+    <p *ngIf = "user.Email != ''" class = "text-center mt-3">An email with access code has been sent to your email address:</p>
+    <p *ngIf = "user.Email != ''" class = "text-center">{{user.Email}}</p>
+    
+    <p *ngIf = "user.Email == ''" class = "text-center mt-3">Please back up your access code by taking a [screenshot] or,</p>
+    <p *ngIf = "user.Email == ''" class = "text-center">I want to sent it to:</p>
+    <input *ngIf = "user.Email == ''" class="form-control" tpye = "email" [(ngModel)] = "email" >
+    <div class="wrapper">
+        <button type="button" mdbBtn size = "sm" color="light-green" class="px-10" mdbWavesEffect (click)="onClick()">Ok</button>    
+    </div>
+</div>
+</mat-dialog-content>
