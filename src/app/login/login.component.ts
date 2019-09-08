@@ -44,7 +44,8 @@ export class LoginComponent implements OnInit {
 
   onSubmit()
   {
-    
+    if (!this.loginForm.get('mobile').invalid)
+    {
     this.httpCustomer.GetCustomerFromMobileNumber(this.loginForm.value.mobile)
       .subscribe(result => {
         var status:IStatus[] = JSON.parse(localStorage.getItem("StatusString"));
@@ -136,6 +137,7 @@ export class LoginComponent implements OnInit {
 
         }
       });
+    }
   }
 
   onBack()

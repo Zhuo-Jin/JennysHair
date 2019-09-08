@@ -40,7 +40,7 @@
       <div class = "col-md-1 my-4">
         
       </div>
-      <div class = "col-md-7 my-2">
+      <div class = "col-md-7 my-2 d-none d-md-block">
         <img *ngFor = "let imgNo of randomImageNumber" src="../../assets/Images/Random/{{imgNo.ImageNumber}}.jpg" 
               class="{{imgNo.isIn ? 'mx-3 animated fadeIn float-right img-thumbnail rounded  z-depth-1 ' : 'mx-3 animated fadeOut float-right img-thumbnail rounded  z-depth-1 '}}" 
               style="width: 70px; height: 70px" alt = "{{imgNo.ImageNumber}}.jpg"     >
